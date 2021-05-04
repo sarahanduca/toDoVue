@@ -7,8 +7,8 @@
           <div class="inputs">
             <b-input
               placeholder="Todo"
-              v-on:keyup.enter="addTask(task)"
               v-model="task"
+              v-on:keyup.enter="addTask(task)"
             />
             <div class="buttons">
               <b-button
@@ -34,25 +34,45 @@
               id="list"
               ref="list"
               class="mt-2"
-              v-for="task in tasks"
+              v-for="task in listaTarefa"
               :key="task.id"
             >
               <b-form-checkbox
+                ref="input"
                 :id="task.id"
                 :name="task.id"
+                v-model="task.status"
                 value="done"
                 unchecked-value="not_done"
-                :class="{ done: status == 'done' }"
+                :class="{ done: task.status == 'done' }"
+                class="mt-2"
               >
-                {{ task.task }}
-                <!-- 
-            <b-button size="sm" class="mx-3" variant="outline-danger"
-              >Remove</b-button
-            >
-            <b-button size="sm" variant="outline-info">Edit</b-button> -->
+                {{ task.tarefa }}
+                <br />
+                <b-button
+                  size="sm"
+                  class="mx-3"
+                  v-on:click="deleteItem(task)"
+                  :class="{ crudbtn: task.status == 'not_done' }"
+                  variant="outline-danger"
+                  >Remove</b-button
+                >
+                <b-button
+                  size="sm"
+                  :class="{ crudbtn: task.status == 'not_done' }"
+                  variant="outline-info"
+                  >Edit</b-button
+                >
               </b-form-checkbox>
             </div>
           </div>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <b-button variant="dark" class="mt-5">
+            <NuxtLink to="/" class="nuxtlink">Home</NuxtLink>
+          </b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -62,21 +82,33 @@
 export default {
   data() {
     return {
-      tasks: [{ id: 1, task: 'passear com o doguinho' }],
+      listaTarefa: [
+        { id: 1, tarefa: 'passear com o doguinho', status: 'not_done' },
+      ],
     }
   },
   methods: {
     addTask(task) {
-      if (task != '') {
-        this.tasks.push({
-          id: this.tasks.length + 1,
-          task,
+      if (task != '' && task != ' ') {
+        this.listaTarefa.push({
+          id: this.listaTarefa.length + 1,
+          tarefa: this.task,
+          status: 'not_done',
         })
-        this.task = ''
       }
+      this.task = ''
     },
     removeAllTask() {
-      this.tasks = []
+      this.listaTarefa = []
+    },
+    removeChecked() {
+      this.listaTarefa.forEach((e) => {
+        e.status == 'done'
+      })
+    },
+    deleteItem(task) {
+      const index = this.listaTarefa.indexOf(task)
+      this.listaTarefa.splice(index, 1)
     },
   },
 }
@@ -84,5 +116,11 @@ export default {
 <style>
 * {
   background: rgb(233, 225, 178);
+}
+.done {
+  font-style: italic;
+}
+.crudbtn {
+  display: none;
 }
 </style>
