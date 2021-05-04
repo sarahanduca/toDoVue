@@ -4,8 +4,9 @@
     <b-container fluid class="justify-content-md-center w-50">
       <b-row>
         <b-col>
-          <div class="inputs">
+          <div>
             <b-input
+              ref="input"
               placeholder="Todo"
               v-model="task"
               v-on:keyup.enter="addTask(task)"
@@ -32,13 +33,11 @@
           <div class="mt-5 w-50" align="left">
             <div
               id="list"
-              ref="list"
               class="mt-2"
               v-for="task in listaTarefa"
               :key="task.id"
             >
               <b-form-checkbox
-                ref="input"
                 :id="task.id"
                 :name="task.id"
                 v-model="task.status"
@@ -48,21 +47,29 @@
                 class="mt-2"
               >
                 {{ task.tarefa }}
+                <b-input
+                  :class="{ crudbtn: task.clicked == 'off' }"
+                  v-on:keyup.enter="task.clicked = 'off'"
+                  ref="input"
+                  v-model="task.tarefa"
+                  :value="task.tarefa"
+                />
                 <br />
-                <b-button
-                  size="sm"
-                  class="mx-3"
-                  v-on:click="deleteItem(task)"
-                  :class="{ crudbtn: task.status == 'not_done' }"
-                  variant="outline-danger"
-                  >Remove</b-button
-                >
-                <b-button
-                  size="sm"
-                  :class="{ crudbtn: task.status == 'not_done' }"
-                  variant="outline-info"
-                  >Edit</b-button
-                >
+                <div :class="{ crudbtn: task.status == 'not_done' }">
+                  <b-button
+                    size="sm"
+                    class="mx-3"
+                    v-on:click="deleteItem(task)"
+                    variant="outline-danger"
+                    >Remove</b-button
+                  >
+                  <b-button
+                    size="sm"
+                    variant="outline-info"
+                    v-on:click="task.clicked = 'on'"
+                    >Edit</b-button
+                  >
+                </div>
               </b-form-checkbox>
             </div>
           </div>
@@ -83,7 +90,12 @@ export default {
   data() {
     return {
       listaTarefa: [
-        { id: 1, tarefa: 'passear com o doguinho', status: 'not_done' },
+        {
+          id: 1,
+          tarefa: 'passear com o doguinho',
+          status: 'not_done',
+          clicked: 'off',
+        },
       ],
     }
   },
@@ -94,17 +106,13 @@ export default {
           id: this.listaTarefa.length + 1,
           tarefa: this.task,
           status: 'not_done',
+          clicked: 'off',
         })
       }
       this.task = ''
     },
     removeAllTask() {
       this.listaTarefa = []
-    },
-    removeChecked() {
-      this.listaTarefa.forEach((e) => {
-        e.status == 'done'
-      })
     },
     deleteItem(task) {
       const index = this.listaTarefa.indexOf(task)

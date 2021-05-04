@@ -20,9 +20,7 @@
 </template>
 
 <script>
-export default {
-  name: 'Todo',
-}
+export default {}
 </script>
 <style>
 .container {
