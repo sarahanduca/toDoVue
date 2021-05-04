@@ -7,7 +7,6 @@
           <div class="inputs">
             <b-input
               placeholder="Todo"
-              class=""
               v-on:keyup.enter="addTask(task)"
               v-model="task"
             />
