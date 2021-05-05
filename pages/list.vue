@@ -29,8 +29,8 @@
         </b-col>
       </b-row>
       <b-row>
-        <b-col class="tarefas w-50 px-5">
-          <div class="mt-5" align="center">
+        <b-col class="tarefas px-5">
+          <div class="mt-5" align="left">
             <div
               id="list"
               class="mt-2"
