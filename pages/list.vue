@@ -29,8 +29,8 @@
         </b-col>
       </b-row>
       <b-row>
-        <b-col>
-          <div class="mt-5 w-50" align="left">
+        <b-col class="tarefas w-50 px-5">
+          <div class="mt-5" align="center">
             <div
               id="list"
               class="mt-2"
@@ -55,7 +55,7 @@
                   :value="task.tarefa"
                 />
                 <br />
-                <div :class="{ crudbtn: task.status == 'not_done' }">
+                <div class="crudbtn">
                   <b-button
                     size="sm"
                     class="mx-3"
