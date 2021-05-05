@@ -48,7 +48,7 @@
               >
                 {{ task.tarefa }}
                 <b-input
-                  :class="{ crudbtn: task.clicked == 'off' }"
+                  :class="{ editTask: task.clicked == 'off' }"
                   v-on:keyup.enter="task.clicked = 'off'"
                   ref="input"
                   v-model="task.tarefa"
@@ -89,6 +89,7 @@
 export default {
   data() {
     return {
+      task: '',
       listaTarefa: [
         {
           id: 1,
@@ -125,9 +126,24 @@ export default {
 * {
   background: rgb(233, 225, 178);
 }
-.done {
+.done label {
   font-style: italic;
+  text-decoration: line-through;
 }
+
+label {
+  cursor: pointer;
+  margin: 2rem 0;
+}
+
+label:hover .crudbtn {
+  display: block;
+}
+
+.editTask {
+  display: none;
+}
+
 .crudbtn {
   display: none;
 }
