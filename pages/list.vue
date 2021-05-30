@@ -24,6 +24,12 @@
                 v-on:click="removeAllTask()"
                 >Remove All</b-button
               >
+              <b-button
+                variant="outline-danger"
+                class="mt-3"
+                v-on:click="removeDoneTasks()"
+                >Remove Done Tasks</b-button
+              >
             </div>
           </div>
         </b-col>
@@ -118,6 +124,11 @@ export default {
     deleteItem(task) {
       const index = this.listaTarefa.indexOf(task)
       this.listaTarefa.splice(index, 1)
+    },
+    removeDoneTasks() {
+      this.listaTarefa.forEach((task) => {
+        task.status == 'done' ? this.deleteItem(task) : ''
+      })
     },
   },
 }
