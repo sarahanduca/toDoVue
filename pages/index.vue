@@ -32,7 +32,6 @@ export default {}
   flex-direction: column;
   text-align: center;
 }
-
 .nuxtlink {
   text-decoration: none;
   color: aliceblue;
@@ -41,7 +40,6 @@ export default {}
   text-decoration: none;
   color: rgb(157, 163, 168);
 }
-
 .content {
   width: 100vw;
   height: 60vh;
@@ -52,7 +50,6 @@ export default {}
 .slider-wrapper {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-
   font-weight: 300;
   font-size: 80px;
   color: #080808;

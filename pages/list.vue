@@ -45,7 +45,6 @@
             >
               <b-form-checkbox
                 :id="task.id"
-                :name="task.id"
                 v-model="task.status"
                 value="done"
                 unchecked-value="not_done"
@@ -53,6 +52,7 @@
                 class="mt-2"
               >
                 {{ task.tarefa }}
+
                 <b-input
                   :class="{ editTask: task.clicked == 'off' }"
                   v-on:keyup.enter="task.clicked = 'off'"
@@ -95,10 +95,11 @@
 export default {
   data() {
     return {
+      idCount: 0,
       task: '',
       listaTarefa: [
         {
-          id: 1,
+          id: this.idCount,
           tarefa: 'passear com o doguinho',
           status: 'not_done',
           clicked: 'off',
@@ -109,8 +110,9 @@ export default {
   methods: {
     addTask(task) {
       if (task != '' && task != ' ') {
+        this.idCount += 1
         this.listaTarefa.push({
-          id: this.listaTarefa.length + 1,
+          id: this.idCount.toString(),
           tarefa: this.task,
           status: 'not_done',
           clicked: 'off',
@@ -126,9 +128,16 @@ export default {
       this.listaTarefa.splice(index, 1)
     },
     removeDoneTasks() {
-      this.listaTarefa.forEach((task) => {
-        task.status == 'done' ? this.deleteItem(task) : ''
-      })
+      let index = 0
+      let currentTask = this.listaTarefa[index]
+      while (currentTask != undefined) {
+        if (currentTask.status == 'done') {
+          index -= 1
+          this.deleteItem(currentTask)
+        }
+        index += 1
+        currentTask = this.listaTarefa[index]
+      }
     },
   },
 }
