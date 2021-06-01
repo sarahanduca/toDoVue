@@ -127,18 +127,6 @@ export default {
       const index = this.listaTarefa.indexOf(task)
       this.listaTarefa.splice(index, 1)
     },
-    removeDoneTasks() {
-      let index = 0
-      let currentTask = this.listaTarefa[index]
-      while (currentTask != undefined) {
-        if (currentTask.status == 'done') {
-          this.deleteItem(currentTask)
-          index -= 1
-        }
-        index += 1
-        currentTask = this.listaTarefa[index]
-      }
-    },
   },
 }
 </script>
