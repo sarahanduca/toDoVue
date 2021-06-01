@@ -132,8 +132,8 @@ export default {
       let currentTask = this.listaTarefa[index]
       while (currentTask != undefined) {
         if (currentTask.status == 'done') {
-          index -= 1
           this.deleteItem(currentTask)
+          index -= 1
         }
         index += 1
         currentTask = this.listaTarefa[index]
